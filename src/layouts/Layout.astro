@@ -6,14 +6,18 @@ import { SITE } from '../config';
 interface Props {
   title: string;
   description: string;
+  gaId?: string;
+  pixelId?: string;
+  gscVerification?: string;
+  extraSchemas?: object[];
 }
-const { title, description } = Astro.props;
+const { title, description, gaId = '', pixelId = '', gscVerification = '', extraSchemas = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
-const ogImage = `${SITE.url}/og-image.png`;
+const ogImage = `${SITE.url}/og-image.jpg`;
 
-const GA = import.meta.env.PUBLIC_GA_ID;
-const PIXEL = import.meta.env.PUBLIC_META_PIXEL_ID;
-const GSC = import.meta.env.PUBLIC_GSC_TOKEN;
+const GA = gaId;
+const PIXEL = pixelId;
+const GSC = gscVerification;
 
 const schema = {
   '@context': 'https://schema.org',
@@ -22,6 +26,7 @@ const schema = {
   alternateName: SITE.nameEn,
   url: SITE.url,
   telephone: '+201200014211',
+  hasMap: SITE.maps,
   description,
   address: {
     '@type': 'PostalAddress',
@@ -33,6 +38,7 @@ const schema = {
     { '@type': 'Country', name: 'Egypt' },
   ],
 };
+const schemas = [schema, ...extraSchemas];
 ---
 <!doctype html>
 <html lang="ar" dir="rtl">
@@ -52,9 +58,15 @@ const schema = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={SITE.name} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    {schemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
 
     {GA && (
       <>
@@ -88,11 +100,7 @@ const schema = {
         var type = el.getAttribute('data-track');
         var loc = el.getAttribute('data-loc') || 'unknown';
         if (window.gtag) {
-          gtag('event', type === 'call' ? 'click_call' : 'click_whatsapp', {
-            event_category: 'conversion',
-            event_label: loc,
-            transport_type: 'beacon',
-          });
+          gtag('event', 'generate_lead', { method: type, placement: loc });
         }
         if (window.fbq) {
           fbq('track', 'Contact', { method: type, placement: loc });

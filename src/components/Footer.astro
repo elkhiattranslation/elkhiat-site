@@ -10,6 +10,7 @@ import { SITE } from '../config';
       <div>
         <h3>العنوان</h3>
         <p>{SITE.address}</p>
+        <p><a href={SITE.maps} target="_blank" rel="noopener">موقعنا على خرائط جوجل</a></p>
       </div>
       <div>
         <h3>الهاتف وواتساب</h3>
@@ -17,7 +18,8 @@ import { SITE } from '../config';
       </div>
       <div>
         <h3>ساعات العمل</h3>
-        <p>{SITE.hours}</p>
+        <p><strong>مواعيد العمل الرسمية:</strong> {SITE.hoursOfficial}</p>
+        <p><strong>استقبال المستندات عبر واتساب:</strong> {SITE.hoursWhatsapp}</p>
       </div>
     </div>
 

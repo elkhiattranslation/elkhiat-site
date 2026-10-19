@@ -4,6 +4,11 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../config';
 
+// ضع معرّفات التتبع هنا بين علامتي الاقتباس. اتركها فارغة وسيتجاهلها الموقع.
+const GA_MEASUREMENT_ID = ""; // مثال: G-XXXXXXXXXX
+const META_PIXEL_ID = "";     // مثال: 123456789012345
+const GSC_VERIFICATION = "";  // كود التحقق من Google Search Console
+
 const title = 'الخياط للترجمة المعتمدة بدمياط | ترجمة معتمدة للسفارات والجهات الرسمية';
 const description =
   'مكتب ترجمة معتمدة في دمياط، مصر. ترجمة دقيقة ومختومة للسفارات والقنصليات والوثائق الرسمية والقانونية والطبية. أرسل مستندك واتساب واعرف السعر والموعد.';
@@ -30,8 +35,41 @@ const steps = [
   { t: 'الترجمة والمراجعة', d: 'يُترجم المستند ثم يُراجع ويُعتمد من المترجم المختص.' },
   { t: 'استلم مستندك مختوماً', d: 'استلمه من المكتب في دمياط، أو أونلاين، أو بالشحن.' },
 ];
+
+const languages = [
+  'الإنجليزية', 'الفرنسية', 'الألمانية', 'الإيطالية', 'الإسبانية',
+  'الروسية', 'الصينية', 'التركية', 'وغيرها من اللغات المعتمدة للسفارات',
+];
+
+const faqs = [
+  { q: 'هل الترجمة مقبولة لدى جميع السفارات والجهات الحكومية؟',
+    a: 'نعم، جميع الترجمات مختومة ومعتمدة وتُقبل لدى كافة السفارات والقنصليات والوزارات والجهات الرسمية داخل مصر وخارجها.' },
+  { q: 'هل أحتاج للحضور إلى المكتب لتسليم المستندات؟',
+    a: 'لا يشترط. يمكنك تصوير المستند بوضوح وإرساله عبر واتساب، واستلام الترجمة المعتمدة في دمياط أو أونلاين بصيغة PDF مختومة أو عبر الشحن لأي محافظة.' },
+  { q: 'كم يستغرق وقت الترجمة وكيف يتم تحديد التكلفة؟',
+    a: 'يتم تحديد التكلفة وموعد التسليم بدقة فور إرسال صورة المستند عبر واتساب، وغالباً ما تُنجز الوثائق الرسمية والشهادات في نفس اليوم أو خلال 24 ساعة.' },
+  { q: 'كيف أضمن مطابقة الأسماء لبيانات جواز السفر؟',
+    a: 'نراجع كافة الأسماء والتواريخ بدقة، ونطلب إرفاق صورة جواز السفر أو كتابة الحروف المعتمدة لضمان التطابق التام 100%.' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
-<Layout title={title} description={description}>
+<Layout
+  title={title}
+  description={description}
+  gaId={GA_MEASUREMENT_ID}
+  pixelId={META_PIXEL_ID}
+  gscVerification={GSC_VERIFICATION}
+  extraSchemas={[faqSchema]}
+>
   <Header />
   <main>
     <section class="hero">
@@ -64,6 +102,18 @@ const steps = [
       </div>
     </section>
 
+    <section class="section section--surface" id="languages">
+      <div class="container">
+        <div class="section__head">
+          <h2>اللغات التي نترجمها</h2>
+          <p>نترجم من العربية وإليها بين أكثر اللغات طلباً لدى السفارات والجهات الرسمية.</p>
+        </div>
+        <ul class="langs">
+          {languages.map((l) => <li>{l}</li>)}
+        </ul>
+      </div>
+    </section>
+
     <section class="section section--ice" id="why">
       <div class="container">
         <div class="section__head">
@@ -92,6 +142,21 @@ const steps = [
           <a class="btn btn--wa" href={SITE.whatsapp} data-track="whatsapp" data-loc="steps" rel="noopener">
             ابدأ الآن: أرسل مستندك عبر واتساب
           </a>
+        </div>
+      </div>
+    </section>
+    <section class="section section--surface" id="faq">
+      <div class="container">
+        <div class="section__head">
+          <h2>الأسئلة الشائعة</h2>
+        </div>
+        <div class="faq">
+          {faqs.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
         </div>
       </div>
     </section>
