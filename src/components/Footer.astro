@@ -1,0 +1,36 @@
+---
+import { SITE } from '../config';
+---
+<footer class="footer" id="contact">
+  <div class="container">
+    <h2>تواصل معنا</h2>
+    <p class="footer__lead">أرسل صورة مستندك الآن، وسنرد عليك بالتكلفة وموعد التسليم.</p>
+
+    <div class="footer__grid">
+      <div>
+        <h3>العنوان</h3>
+        <p>{SITE.address}</p>
+      </div>
+      <div>
+        <h3>الهاتف وواتساب</h3>
+        <p><a href={SITE.tel} data-track="call" data-loc="footer"><bdi>{SITE.phoneDisplay}</bdi></a></p>
+      </div>
+      <div>
+        <h3>ساعات العمل</h3>
+        <p>{SITE.hours}</p>
+      </div>
+    </div>
+
+    <div class="hero__cta">
+      <a class="btn btn--wa" href={SITE.whatsapp} data-track="whatsapp" data-loc="footer" rel="noopener">أرسل مستندك عبر واتساب</a>
+      <a class="btn btn--ghost" href={SITE.tel} data-track="call" data-loc="footer">اتصال هاتفي مباشر</a>
+    </div>
+
+    <p class="footer__copy">© {new Date().getFullYear()} {SITE.name}. جميع الحقوق محفوظة.</p>
+  </div>
+</footer>
+
+<div class="mobile-bar">
+  <a class="btn btn--wa" href={SITE.whatsapp} data-track="whatsapp" data-loc="sticky_bar" rel="noopener">أرسل مستندك واتساب</a>
+  <a class="btn btn--call" href={SITE.tel} data-track="call" data-loc="sticky_bar">اتصل</a>
+</div>

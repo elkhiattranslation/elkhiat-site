@@ -1,0 +1,106 @@
+---
+import '@fontsource-variable/cairo';
+import '../styles/global.css';
+import { SITE } from '../config';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const ogImage = `${SITE.url}/og-image.png`;
+
+const GA = import.meta.env.PUBLIC_GA_ID;
+const PIXEL = import.meta.env.PUBLIC_META_PIXEL_ID;
+const GSC = import.meta.env.PUBLIC_GSC_TOKEN;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: SITE.name,
+  alternateName: SITE.nameEn,
+  url: SITE.url,
+  telephone: '+201200014211',
+  description,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Damietta',
+    addressCountry: 'EG',
+  },
+  areaServed: [
+    { '@type': 'AdministrativeArea', name: 'Damietta Governorate' },
+    { '@type': 'Country', name: 'Egypt' },
+  ],
+};
+---
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#0F172A" />
+    {GSC && <meta name="google-site-verification" content={GSC} />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ar_EG" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    {GA && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA}`}></script>
+        <script is:inline define:vars={{ GA }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', GA);
+        </script>
+      </>
+    )}
+
+    {PIXEL && (
+      <script is:inline define:vars={{ PIXEL }}>
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+        document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', PIXEL);
+        fbq('track', 'PageView');
+      </script>
+    )}
+
+    <!-- تتبع التحويلات: أي عنصر فيه data-track="whatsapp|call" -->
+    <script is:inline>
+      document.addEventListener('click', function (e) {
+        var el = e.target.closest('[data-track]');
+        if (!el) return;
+        var type = el.getAttribute('data-track');
+        var loc = el.getAttribute('data-loc') || 'unknown';
+        if (window.gtag) {
+          gtag('event', type === 'call' ? 'click_call' : 'click_whatsapp', {
+            event_category: 'conversion',
+            event_label: loc,
+            transport_type: 'beacon',
+          });
+        }
+        if (window.fbq) {
+          fbq('track', 'Contact', { method: type, placement: loc });
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

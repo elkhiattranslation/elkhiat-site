@@ -1,0 +1,15 @@
+---
+import { SITE } from '../config';
+---
+<header class="header">
+  <div class="container header__row">
+    <a href="/" class="wordmark">{SITE.name}</a>
+    <nav class="nav" aria-label="التنقل الرئيسي">
+      <a href="#services">الخدمات</a>
+      <a href="#why">لماذا نحن</a>
+      <a href="#steps">خطوات الطلب</a>
+      <a href="#contact">تواصل معنا</a>
+    </nav>
+    <a class="btn btn--call" href={SITE.tel} data-track="call" data-loc="header">اتصل الآن</a>
+  </div>
+</header>
