@@ -27,6 +27,12 @@ const schema = {
   url: SITE.url,
   telephone: '+201200014211',
   hasMap: SITE.maps,
+  openingHoursSpecification: [{
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
+    opens: '09:00',
+    closes: '21:00',
+  }],
   description,
   address: {
     '@type': 'PostalAddress',
@@ -36,6 +42,7 @@ const schema = {
   areaServed: [
     { '@type': 'AdministrativeArea', name: 'Damietta Governorate' },
     { '@type': 'Country', name: 'Egypt' },
+    { '@type': 'Place', name: 'Arab world' },
   ],
 };
 const schemas = [schema, ...extraSchemas];
