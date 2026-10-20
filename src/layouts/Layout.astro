@@ -19,31 +19,79 @@ const GA = gaId;
 const PIXEL = pixelId;
 const GSC = gscVerification;
 
+const knowsLanguage = [
+  ['Arabic', 'ar'],
+  ['English', 'en'],
+  ['French', 'fr'],
+  ['German', 'de'],
+  ['Italian', 'it'],
+  ['Spanish', 'es'],
+  ['Russian', 'ru'],
+  ['Chinese', 'zh'],
+  ['Turkish', 'tr'],
+  ['Japanese', 'ja'],
+  ['Korean', 'ko'],
+  ['Hindi', 'hi'],
+  ['Portuguese', 'pt'],
+  ['Greek', 'el'],
+  ['Dutch', 'nl'],
+  ['Swedish', 'sv'],
+  ['Polish', 'pl'],
+  ['Romanian', 'ro'],
+  ['Ukrainian', 'uk'],
+  ['Hebrew', 'he'],
+  ['Persian', 'fa'],
+  ['Urdu', 'ur'],
+  ['Indonesian', 'id'],
+  ['Swahili', 'sw'],
+  ['Vietnamese', 'vi'],
+].map(([name, code]) => ({ '@type': 'Language', name, alternateName: code }));
+
+const allWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
+  '@id': `${SITE.url}/#organization`,
   name: SITE.name,
   alternateName: SITE.nameEn,
   url: SITE.url,
+  logo: `${SITE.url}/logo.png`,
+  image: ogImage,
+  description,
   telephone: '+201200014211',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'دمياط',
+    addressRegion: 'محافظة دمياط',
+    addressCountry: 'EG',
+  },
   hasMap: SITE.maps,
+  sameAs: [SITE.social.facebook, SITE.social.instagram, SITE.social.x],
+  areaServed: [
+    { '@type': 'Country', name: 'Egypt' },
+    { '@type': 'Place', name: 'Arab world' },
+    { '@type': 'Place', name: 'Worldwide' },
+  ],
+  knowsLanguage,
   openingHoursSpecification: [{
     '@type': 'OpeningHoursSpecification',
     dayOfWeek: ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
-    opens: '09:00',
-    closes: '21:00',
+    opens: '08:00',
+    closes: '16:00',
   }],
-  description,
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Damietta',
-    addressCountry: 'EG',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+201200014211',
+    contactType: 'customer service',
+    availableLanguage: ['Arabic', 'English'],
+    hoursAvailable: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: allWeek,
+      opens: '00:00',
+      closes: '23:59',
+    },
   },
-  areaServed: [
-    { '@type': 'AdministrativeArea', name: 'Damietta Governorate' },
-    { '@type': 'Country', name: 'Egypt' },
-    { '@type': 'Place', name: 'Arab world' },
-  ],
 };
 const schemas = [schema, ...extraSchemas];
 ---
@@ -56,6 +104,9 @@ const schemas = [schema, ...extraSchemas];
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="theme-color" content="#0F172A" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     {GSC && <meta name="google-site-verification" content={GSC} />}
 
     <meta property="og:type" content="website" />
@@ -73,7 +124,7 @@ const schemas = [schema, ...extraSchemas];
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    {schemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+    {schemas.map((s) => <script is:inline type="application/ld+json" set:html={JSON.stringify(s)} />)}
 
     {GA && (
       <>

@@ -4,13 +4,13 @@ import { SITE } from '../config';
 <footer class="footer" id="contact">
   <div class="container">
     <h2>تواصل معنا</h2>
-    <p class="footer__lead">أرسل صورة مستندك الآن، وسنرد عليك بالتكلفة وموعد التسليم.</p>
+    <p class="footer__lead">جاهزون لاستقبال مستندك في أي وقت، تواصل معنا بالطريقة الأنسب لك.</p>
 
     <div class="footer__grid">
       <div>
-        <h3>العنوان</h3>
-        <p>{SITE.address}</p>
-        <p><a href={SITE.maps} target="_blank" rel="noopener">موقعنا على خرائط جوجل</a></p>
+        <h3>الموقع</h3>
+        <address class="footer__addr">{SITE.addressLine}</address>
+        <a class="btn btn--ghost btn--sm" href={SITE.maps} target="_blank" rel="noopener">موقعنا على خرائط جوجل</a>
       </div>
       <div>
         <h3>الهاتف وواتساب</h3>
@@ -18,8 +18,8 @@ import { SITE } from '../config';
       </div>
       <div>
         <h3>ساعات العمل</h3>
-        <p><strong>مواعيد العمل الرسمية:</strong> {SITE.hoursOfficial}</p>
-        <p><strong>استقبال المستندات عبر واتساب:</strong> {SITE.hoursWhatsapp}</p>
+        <p><strong>مواعيد العمل الرسمية داخل المؤسسة:</strong> {SITE.hoursOfficial}</p>
+        <p><strong>استقبال الطلبات والمستندات عبر واتساب والرد على الهاتف:</strong> {SITE.hoursWhatsapp}</p>
       </div>
     </div>
 
@@ -27,6 +27,13 @@ import { SITE } from '../config';
       <a class="btn btn--wa" href={SITE.whatsapp} data-track="whatsapp" data-loc="footer" rel="noopener">أرسل مستندك عبر واتساب</a>
       <a class="btn btn--ghost" href={SITE.tel} data-track="call" data-loc="footer">اتصال هاتفي مباشر</a>
     </div>
+
+    <p class="footer__social">
+      <span>تابعنا:</span>
+      <a href={SITE.social.facebook} target="_blank" rel="noopener">فيسبوك</a>
+      <a href={SITE.social.instagram} target="_blank" rel="noopener">إنستجرام</a>
+      <a href={SITE.social.x} target="_blank" rel="noopener">منصة X</a>
+    </p>
 
     <p class="footer__copy">© {new Date().getFullYear()} {SITE.name}. جميع الحقوق محفوظة.</p>
   </div>

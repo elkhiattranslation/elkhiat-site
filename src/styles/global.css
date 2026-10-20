@@ -166,3 +166,24 @@ h3 { color: var(--navy-2); font-size: 1.2rem; font-weight: 700; line-height: 1.5
   .hero--visual { padding-block: 15vw 4.5rem; }
   .hero--visual .hero__grid { grid-template-columns: 1fr 1fr; }
 }
+
+/* About */
+.about { display: grid; gap: 1.75rem; }
+.about__main p { margin-top: .75rem; font-size: 1.1rem; }
+.about__vision { padding: 1.75rem; border-radius: 16px; border-inline-start: 4px solid var(--blue); background: var(--navy); }
+.about__vision h3 { color: #fff; font-size: 1.25rem; }
+.about__vision p { margin-top: .5rem; color: #E2E8F0; }
+@media (min-width: 900px) { .about { grid-template-columns: 1.2fr .8fr; gap: 3rem; align-items: center; } }
+
+/* 25-language mosaic (يتجاوز القواعد السابقة) + footer */
+.mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: minmax(76px, auto); }
+.mosaic span { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .1rem; }
+.mosaic b { font-size: clamp(1rem, 2.2vw, 1.3rem); font-weight: 800; line-height: 1.35; }
+.mosaic small { font-size: .8rem; font-weight: 600; opacity: .85; }
+@media (max-width: 559px) { .mosaic span:last-child { grid-column: span 2; } }
+@media (min-width: 560px) { .mosaic { grid-template-columns: repeat(5, 1fr); } }
+@media (min-width: 900px) { .mosaic { grid-template-columns: repeat(5, 1fr); } }
+.langs-sub { margin: 2.5rem 0 1.25rem; color: var(--navy); font-size: 1.25rem; font-weight: 800; }
+.btn--sm { min-height: 44px; padding: .4rem 1.1rem; font-size: 1rem; }
+.footer__addr { margin-bottom: .75rem; font-size: .9rem; font-style: normal; line-height: 1.7; }
+.footer__social { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; margin-top: 1.75rem; }
