@@ -156,3 +156,13 @@ h3 { color: var(--navy-2); font-size: 1.2rem; font-weight: 700; line-height: 1.5
 .mosaic .tile--lg { grid-column: span 2; grid-row: span 2; background: var(--blue); color: #fff; font-size: clamp(2.2rem, 7vw, 3.8rem); }
 @media (min-width: 560px) { .mosaic { grid-template-columns: repeat(3, 1fr); } .mosaic .tile--lg { grid-column: span 3; } }
 @media (min-width: 900px) { .mosaic { grid-template-columns: repeat(6, 1fr); } }
+
+/* Hero: flags + globe composite */
+.hero--visual { position: relative; overflow: hidden; background: #0e2c5c; padding-block: calc(62vw - 1rem) 3rem; }
+.hero__bg { position: absolute; inset: 0 0 auto 0; z-index: 0; display: block; }
+.hero__bg img { display: block; width: 100%; height: auto; }
+.hero--visual .hero__grid { position: relative; z-index: 1; align-items: start; }
+@media (min-width: 900px) {
+  .hero--visual { padding-block: 15vw 4.5rem; }
+  .hero--visual .hero__grid { grid-template-columns: 1fr 1fr; }
+}

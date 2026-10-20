@@ -103,7 +103,13 @@ const faqSchema = {
 >
   <Header />
   <main>
-    <section class="hero">
+    <section class="hero hero--visual">
+      <picture class="hero__bg">
+        <source media="(min-width: 900px)" srcset="/images/hero-desktop.webp" width="1920" height="900" />
+        <img src="/images/hero-mobile.webp" width="900" height="620"
+          alt="أعلام دول العالم وكرة أرضية عملاقة ترمز إلى ترجمة معتمدة بأكثر من 100 لغة - الخياط للترجمة المعتمدة"
+          loading="eager" fetchpriority="high" decoding="async" />
+      </picture>
       <div class="container hero__grid">
         <div class="hero__text">
         <h1>الخياط للترجمة المعتمدة – ترجمة دقيقة ومعتمدة لكافة السفارات والجهات الرسمية في مصر والوطن العربي</h1>
@@ -123,11 +129,6 @@ const faqSchema = {
           <li><strong>24 ساعة</strong><span>موعد تسليم أغلب الوثائق الرسمية</span></li>
           <li class="stats__wide"><strong>ترجمة معتمدة للمستندات بأكثر من 100 لغة حول العالم!</strong></li>
         </ul>
-        </div>
-        <div class="hero__media">
-          <img class="media" src="/images/hero-banner.webp" width="1200" height="900"
-            alt="مكتب الخياط للترجمة المعتمدة في دمياط - ترجمة وثائق وتأشيرات شنجن والسفارات"
-            loading="eager" fetchpriority="high" decoding="async" />
         </div>
       </div>
     </section>
@@ -183,7 +184,7 @@ const faqSchema = {
             ))}
           </ul>
           <img class="media" src="/images/trust-banner.webp" width="1200" height="600"
-            alt="ختم واعتماد ترجمة الوثائق الرسمية للسفارات والقنصليات ووزارة الخارجية - الخياط للترجمة المعتمدة"
+            alt="مصافحة تعبّر عن الثقة والموثوقية في خدمات الخياط للترجمة المعتمدة"
             loading="lazy" decoding="async" />
         </div>
       </div>
