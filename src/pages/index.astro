@@ -46,6 +46,28 @@ const languages = [
   { n: 'التركية', d: 'الإقامة والدراسة والتجارة والوثائق الرسمية.' },
 ];
 
+const welcomes = [
+  { t: 'Welcome', l: 'en' },
+  { t: 'أهلاً وسهلاً', l: 'ar' },
+  { t: 'Bienvenue', l: 'fr' },
+  { t: 'Willkommen', l: 'de' },
+  { t: 'Bienvenido', l: 'es' },
+  { t: 'Benvenuto', l: 'it' },
+  { t: 'Добро пожаловать', l: 'ru' },
+  { t: '欢迎', l: 'zh' },
+  { t: 'Hoş geldiniz', l: 'tr' },
+  { t: 'Bem-vindo', l: 'pt' },
+  { t: 'ようこそ', l: 'ja' },
+  { t: '환영합니다', l: 'ko' },
+  { t: 'स्वागत', l: 'hi' },
+  { t: 'Καλώς ορίσατε', l: 'el' },
+  { t: 'Welkom', l: 'nl' },
+  { t: 'Välkommen', l: 'sv' },
+  { t: 'Selamat datang', l: 'id' },
+  { t: 'Karibu', l: 'sw' },
+  { t: 'Witamy', l: 'pl' },
+];
+
 const faqs = [
   { q: 'هل الترجمة مقبولة لدى جميع السفارات والجهات الحكومية؟',
     a: 'نعم، جميع الترجمات مختومة ومعتمدة وتُقبل لدى كافة السفارات والقنصليات والوزارات والجهات الرسمية داخل مصر وخارجها.' },
@@ -97,8 +119,9 @@ const faqSchema = {
         </div>
         <ul class="stats">
           <li><strong>+15,000</strong><span>وثيقة مترجمة ومعتمدة</span></li>
-          <li><strong>جميع اللغات</strong><span>من العربية وإليها</span></li>
+          
           <li><strong>24 ساعة</strong><span>موعد تسليم أغلب الوثائق الرسمية</span></li>
+          <li class="stats__wide"><strong>ترجمة معتمدة للمستندات بأكثر من 100 لغة حول العالم!</strong></li>
         </ul>
         </div>
         <div class="hero__media">
@@ -133,6 +156,11 @@ const faqSchema = {
         <div class="section__head">
           <h2>اللغات التي نترجمها</h2>
           <p>ترجمة معتمدة لجميع اللغات، من العربية وإليها.</p>
+        </div>
+        <div class="mosaic" role="img" aria-label="كلمة «أهلاً بك» مكتوبة بعدة لغات">
+          {welcomes.map((w, i) => (
+            <span class={i === 0 ? 'tile--lg' : undefined} lang={w.l}>{w.t}</span>
+          ))}
         </div>
         <ul class="list">
           {languages.map((l) => (
